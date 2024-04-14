@@ -39,3 +39,58 @@ function addPlayer(player, score) {
 
 // Call the function to populate the table when the page loads
 document.addEventListener('DOMContentLoaded', populateRankingsTable);
+
+//Connecting the wallet
+document.addEventListener('DOMContentLoaded', function () {
+    const connectWalletBtn = document.getElementById('connectWalletBtn');
+
+    connectWalletBtn.addEventListener('click', async function () {
+        try {
+            // Check if Web3 is available
+            if (typeof window.ethereum !== 'undefined') {
+                // Request access to the user's account
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                // Wallet connected successfully
+                console.log('Wallet connected successfully!', accounts);
+            } else {
+                // Web3 not available
+                throw new Error('Web3 is not available');
+            }
+        } catch (error) {
+            // Handle error (user denied access or Web3 not available)
+            console.error('Error connecting wallet:', error);
+            // Display alert with error message
+            alert('Error connecting wallet: ' + error.message);
+        }
+    });
+});
+
+
+// Make an HTTP GET request to the API endpoint
+//    fetch('https://your-backend-api.com/memes/top10')
+//    .then(response => {
+//      if (!response.ok) {
+//        throw new Error('Network response was not ok');
+//      }
+//      return response.json(); // Parse JSON response
+//    })
+//    .then(data => {
+//      // Process the meme data
+//      displayTop10Memes(data);
+//    })
+//    .catch(error => {
+//      console.error('Error fetching meme data:', error);
+//    });
+
+//  // Function to display the top 10 memes in a table
+//  function displayTop10Memes(memes) {
+//    const tableBody = document.getElementById('rankingsTableBody');
+//    tableBody.innerHTML = ''; // Clear existing table rows
+   
+//    memes.forEach((meme, index) => {
+//      if (index < 10) { // Display only top 10 memes
+//        const row = tableBody.insertRow();
+//        row.innerHTML = `<td>${meme.name}</td><td>${meme.volume}</td>`;
+//      }
+//    });
+//  }
